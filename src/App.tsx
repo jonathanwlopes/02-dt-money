@@ -1,7 +1,9 @@
-import { Fragment, useState } from "react"
+import { useState } from "react"
 import { Dashboard } from "./components/Dashboard"
 import { Header } from "./components/Header"
 import Modal from "react-modal"
+import { NewTransactionModal } from "./components/NewTransactionModal"
+import { TransactionsContextProvider } from "./context/TransactionsContext"
 
 Modal.setAppElement("#root")
 
@@ -17,13 +19,10 @@ export const App = () => {
   }
 
   return (
-    <Fragment>
+    <TransactionsContextProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
-
-      <Modal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal}>
-        <h2>Cadastrar Transação</h2>
-      </Modal>
-    </Fragment>
+      <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
+    </TransactionsContextProvider>
   )
 }
